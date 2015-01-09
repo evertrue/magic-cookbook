@@ -3,17 +3,8 @@ require 'bundler'
 require 'rake'
 
 
-def realm?
-  `git ls-files` =~ /\bBerksfile\.lock\b/
-end
-
-
 def bump spec
   `bundle exec tony bump #{spec}`
-  if realm?
-    `bundle exec berks`
-    `git add Berksfile.lock`
-  end
   version = File.read('VERSION').strip
   `git add VERSION`
   `git commit -m "Version bump to #{version}"`
@@ -51,13 +42,4 @@ task :release do
   raise 'Push failed' unless $?.exitstatus.zero?
   `git push --tag`
   raise 'Tag push failed' unless $?.exitstatus.zero?
-end
-
-
-desc 'Constrain an environment with the local locks'
-task :constrain, [ :env ] do |_, args|
-  if realm?
-    `git tag -a #{args[:env]} -m #{args[:env]} --force`
-    `git push --tag --force`
-  end
 end

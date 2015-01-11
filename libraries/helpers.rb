@@ -1,9 +1,9 @@
 module Helpers
-  def file_cache_path fp=nil
+  def file_cache_path *fp
     if fp.nil?
       Chef::Config[:file_cache_path]
     else
-      ::File.join Chef::Config[:file_cache_path], fp
+      ::File.join Chef::Config[:file_cache_path], *fp
     end
   end
 end

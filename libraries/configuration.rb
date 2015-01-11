@@ -1,7 +1,18 @@
 module Configuration
   require 'shellwords'
+  require 'yaml'
   require 'json'
   require 'erb'
+
+  def deep_hash obj
+    obj.inject({}) do |h, (k,v)|
+      h[k] = v.kind_of?(Hash) ? deep_hash(v) : v ; h
+    end
+  end
+
+  def yaml_config obj
+    deep_hash(obj).to_yaml.strip
+  end
 
   def properties_config obj
     begin
@@ -15,7 +26,7 @@ module Configuration
   end
 
   def json_config obj
-    JSON::pretty_generate obj
+    ::JSON.pretty_generate obj
   end
 
   def exports_raw_config obj
@@ -26,7 +37,7 @@ module Configuration
 
   def exports_config obj
     obj.map do |k, v|
-      "export #{k.upcase}=#{Shellwords.escape v.to_s}"
+      "export #{k}=#{Shellwords.escape v.to_s}"
     end.join("\n")
   end
 

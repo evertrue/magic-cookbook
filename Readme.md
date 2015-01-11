@@ -22,9 +22,56 @@ file_cache_path 'cached.file' # => '/var/cache/chef/cached.file'
 
 Declared under the `Configuration` module in `libraries/configuration.rb`.
 
+
+### INI
+
+Converts a Hash to INI-style configuration:
+
+```ruby
+ini_config({
+  'this' => {
+    'is' => 'an',
+    'example' => 123
+  }
+})
+```
+
+Generates:
+
+```
+[this]
+is=an
+example=123
+```
+
+
+### YAML
+
+Converts a Hash to YAML:
+
+```ruby
+yaml_config({
+  'this' => {
+    'is' => %w[ just a test ]
+  }
+})
+```
+
+Generates:
+
+```
+---
+this:
+  is:
+  - just
+  - a
+  - test
+```
+
+
 ### JSON
 
-Converts native Ruby objects to JSON and returns a pretty representation:
+Converts a Hash to JSON and returns a pretty representation:
 
 ```ruby
 json_config({
@@ -53,7 +100,7 @@ Generates:
 
 ### Java
 
-Converts native Ruby objects to Java-style configuration:
+Converts a Hash to Java-style configuration:
 
 ```ruby
 java_config({
@@ -74,9 +121,26 @@ this {
 ```
 
 
+### Java Properties
+
+Converts a Hash to [Java properties](https://github.com/jnbt/java-properties):
+
+```ruby
+properties_config({
+  'foo' => 'bar'
+})
+```
+
+Generates:
+
+```
+foo=bar
+```
+
+
 ### Logstash
 
-Converts native Ruby objects to Logstash-style configuration:
+Converts a Hash to Logstash-style configuration:
 
 ```ruby
 logstash_config({
@@ -129,7 +193,7 @@ output {
 
 ### Exports
 
-Converts a Hash of key-value pairs to shell exports-style configuration:
+Converts a Hash to shell exports-style configuration:
 
 ```ruby
 exports_config({
@@ -143,10 +207,10 @@ exports_config({
 Generates:
 
 ```ruby
-export THIS=''
-export IS=10
-export A=nother
-export TEST=1234
+export this=''
+export is=10
+export a=nother
+export test=1234
 ```
 
 

@@ -189,10 +189,10 @@ end
 
 file '/tmp/expect/exports.conf.expect' do
   content %Q$
-    export THIS=''
-    export IS=10
-    export A=nother
-    export TEST=1234
+    export this=''
+    export is=10
+    export a=nother
+    export test=1234
   $.strip.gsub(/^    /, '')
 end
 
@@ -214,5 +214,27 @@ file '/tmp/expect/ini.conf.expect' do
     [this]
     is=just
     a=test
+  $.strip.gsub(/^    /, '')
+end
+
+
+
+node.default['configurator']['test']['yaml'] = {
+  'this' => {
+    'is' => 'just',
+    'a' => 'test'
+  }
+}
+
+file '/tmp/expect/yaml.conf' do
+  content yaml_config(node.default['configurator']['test']['yaml'])
+end
+
+file '/tmp/expect/yaml.conf.expect' do
+  content %Q$
+    ---
+    this:
+      is: just
+      a: test
   $.strip.gsub(/^    /, '')
 end

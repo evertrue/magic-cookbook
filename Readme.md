@@ -2,8 +2,8 @@
 
 A library cookbook meant to make writing cookbooks a bit easier. It exposes
 some helpful functions, which you can use directly in recipes and resources.
-This cookbook has no attributes, no recipes, and no dependencies. All platforms
-are supported.
+This cookbook has no attributes, no recipes, and no dependencies. All Linux
+(and probably other Unix-like) platforms are supported.
 
 
 ## Helpers

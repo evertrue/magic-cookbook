@@ -13,4 +13,9 @@ describe 'magic::default' do
     `which htop`
     assert $?.exitstatus.zero?
   end
+
+  it 'has reified the vim package' do
+    `which vim`
+    assert $?.exitstatus.zero?
+  end
 end

@@ -11,6 +11,9 @@ reify :gem_package, {
   [ :touch, 'file[/tmp/expect/ini.conf]' ]
 ], :upgrade
 
+reify_packages({ 'vim' => {} }, [
+  [ :create, 'directory[/tmp/expect]' ]
+], :upgrade)
 
 directory '/tmp/expect'
 

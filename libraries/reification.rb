@@ -10,6 +10,7 @@ module Reification
 
       notifications.each do |notify_spec|
         raise 'Not a valid notification spec' unless notify_spec.is_a?(Array)
+        notify_spec     = notify_spec.dup
         notify_action   = notify_spec.shift.to_sym
         notify_resource = notify_spec.shift
         notify_timing   = notify_spec.shift || :delayed
@@ -36,6 +37,7 @@ module Reification
 
         notifications.each do |notify_spec|
           raise 'Not a valid notification spec' unless notify_spec.is_a?(Array)
+          notify_spec     = notify_spec.dup
           notify_action   = notify_spec.shift.to_sym
           notify_resource = notify_spec.shift
           notify_timing   = notify_spec.shift || :delayed

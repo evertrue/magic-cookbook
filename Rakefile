@@ -4,7 +4,7 @@ require 'rake'
 
 
 def bump spec
-  `bundle exec tony bump #{spec}`
+  `tony bump #{spec}`
   version = File.read('VERSION').strip
   `git add VERSION`
   `git commit -m "Version bump to #{version}"`

@@ -1,4 +1,4 @@
-# magic
+# magic ![Version](https://img.shields.io/cookbook/v/magic.svg?style=flat-square)
 
 A library cookbook meant to make writing cookbooks a bit easier. It exposes
 some helpful functions, which you can use directly in recipes and resources.

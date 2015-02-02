@@ -6,6 +6,14 @@ module Helpers
       ::File.join Chef::Config[:file_cache_path], *fp
     end
   end
+
+  def resource? name
+    begin
+      resources name
+    rescue Chef::Exceptions::ResourceNotFound
+      nil
+    end
+  end
 end
 
 class Chef

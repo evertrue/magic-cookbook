@@ -15,7 +15,7 @@ reify_packages({ 'vim' => {} }, [
   [ :create, 'directory[/tmp/expect]' ]
 ], :upgrade)
 
-directory '/tmp/expect'
+directory '/tmp/expect' if resource? 'gem_package[kffpt]'
 
 raise 'Materialization failed!' unless \
   materialize(nil) == nil

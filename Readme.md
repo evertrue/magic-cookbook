@@ -15,6 +15,14 @@ Declared under the `Helpers` module in `libraries/helpers.rb`.
 ```ruby
 file_cache_path # => '/var/cache/chef'
 file_cache_path 'cached.file' # => '/var/cache/chef/cached.file'
+file_cache_path 'my', 'other.file' # => '/var/cache/chef/my/other.file'
+```
+
+`resource?` can be used to ask whether or not a resource exists:
+
+```ruby
+resource? 'this_thing[doesnt_exist]' # => false
+resource? 'thing_thing[totally_exists]' # => true
 ```
 
 

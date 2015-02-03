@@ -33,6 +33,19 @@ shell_opts({ debug: false, level: 2 }) # => '--level 2'
 ```
 
 
+## Search
+
+`search_nodes` is a light abstraction over Chef search, which allows you to
+make queries using a plain old Ruby Hash:
+
+```ruby
+search_nodes chef_environment: 'example', role: 'test'
+# => search(:node, 'chef_environment:"example" AND role:"test"')
+search_nodes chef_environment: 'example', role: 'test', join_with: 'OR'
+# => search(:node, 'chef_environment:"example" OR role:"test"')
+```
+
+
 ## Configuration
 
 Declared under the `Configuration` module in `libraries/configuration.rb`.

@@ -25,6 +25,13 @@ resource? 'this_thing[doesnt_exist]' # => false
 resource? 'thing_thing[totally_exists]' # => true
 ```
 
+`shell_opts` can translate a Hash into a shell-friendly string of options:
+
+```ruby
+shell_opts({ debug: true, simon: 'says' }) # => '--debug --simon says'
+shell_opts({ debug: false, level: 2 }) # => '--level 2'
+```
+
 
 ## Configuration
 

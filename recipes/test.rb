@@ -17,6 +17,12 @@ reify_packages({ 'vim' => {} }, [
 
 directory '/tmp/expect' if resource? 'gem_package[kffpt]'
 
+raise unless \
+  shell_opts({ debug: true, simon: 'says' }) == '--debug --simon says'
+
+raise unless \
+  shell_opts({ debug: false, level: 2 }) == '--level 2'
+
 raise 'Materialization failed!' unless \
   materialize(nil) == nil
 

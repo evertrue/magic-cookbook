@@ -1,3 +1,5 @@
+require 'shellwords'
+
 module Helpers
   def file_cache_path *fp
     if fp.nil?
@@ -13,6 +15,17 @@ module Helpers
     rescue Chef::Exceptions::ResourceNotFound
       nil
     end
+  end
+
+  def shell_opts opts
+    opts.map do |k, v|
+      case v
+      when true ; "--#{k}"
+      when false ; nil
+      else
+        "--#{k} #{Shellwords.escape v.to_s}"
+      end
+    end.compact.join(' ')
   end
 end
 

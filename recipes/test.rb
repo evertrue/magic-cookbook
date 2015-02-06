@@ -5,6 +5,38 @@
 # Copyright (C) 2014 Blue Jeans Network
 #
 
+hash_a = {
+  one: 1,
+  two: 2,
+  etc: {
+    three: 3,
+    four: 4
+  }
+}
+
+hash_b = {
+  three: 3,
+  etc: {
+    five: 5
+  }
+}
+
+hash_ab = {
+  one: 1,
+  two: 2,
+  three: 3,
+  etc: {
+    three: 3,
+    four: 4,
+    five: 5
+  }
+}
+
+Chef::Log.fatal hash_a.deep_merge!(hash_b)
+
+raise unless \
+  hash_a.deep_merge!(hash_b) == hash_ab
+
 reify :gem_package, {
   name: 'kffpt'
 }, [

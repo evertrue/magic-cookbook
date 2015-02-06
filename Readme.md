@@ -46,6 +46,16 @@ search_nodes chef_environment: 'example', role: 'test', join_with: 'OR'
 ```
 
 
+## Deep Merge
+
+This library extends the Ruby `Hash` class with deep merge capabilities:
+
+```ruby
+{ a: 1, b: { c: 2 } }.deep_merge! b: { d: 4 }, c: 3
+# => { a: 1, b: { c: 2, d: 4 }, c: 3 }
+```
+
+
 ## Configuration
 
 Declared under the `Configuration` module in `libraries/configuration.rb`.

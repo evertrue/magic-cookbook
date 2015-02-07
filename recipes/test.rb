@@ -32,10 +32,15 @@ hash_ab = {
   }
 }
 
-Chef::Log.fatal hash_a.deep_merge!(hash_b)
+Chef::Log.fatal hash_a.deep_merge(hash_b)
+
+Chef::Log.fatal hash_a
 
 raise unless \
   hash_a.deep_merge!(hash_b) == hash_ab
+
+raise unless \
+  hash_a == hash_ab
 
 reify :gem_package, {
   name: 'kffpt'

@@ -32,6 +32,12 @@ shell_opts({ debug: true, simon: 'says' }) # => '--debug --simon says'
 shell_opts({ debug: false, level: 2 }) # => '--level 2'
 ```
 
+`upstart_opts` works like `shell_opts` for Upstart:
+
+```ruby
+upstart_opts({ debug: true, simon: 'says' }) # => "--debug --simon 'says'"
+upstart_opts({ debug: false, level: 2 }) # => "--level '2'"
+```
 
 ## Search
 

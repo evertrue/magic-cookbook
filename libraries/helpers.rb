@@ -27,6 +27,17 @@ module Helpers
       end
     end.compact.join(' ')
   end
+
+  def upstart_opts opts
+    opts.map do |k, v|
+      case v
+      when true ; "--#{k}"
+      when false ; nil
+      else
+        "--#{k} '#{v}'"
+      end
+    end.compact.join(' ')
+  end
 end
 
 class Chef

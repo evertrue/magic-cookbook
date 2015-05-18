@@ -248,6 +248,9 @@ node.default['configurator']['test']['ini'] = {
   'this' => {
     'is' => 'just',
     'a' => 'test'
+  },
+  'hello' => {
+    'world' => 1
   }
 }
 
@@ -260,6 +263,9 @@ file '/tmp/expect/ini.conf.expect' do
     [this]
     is=just
     a=test
+
+    [hello]
+    world=1
   $.strip.gsub(/^    /, '')
 end
 

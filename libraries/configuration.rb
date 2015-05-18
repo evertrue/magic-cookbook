@@ -47,7 +47,7 @@ module Configuration
       config.map do |k, v|
         "#{k}=#{v}"
       end.join("\n")
-    end.join("\n")
+    end.join("\n\n")
   end
 
   def java_config obj, l=0

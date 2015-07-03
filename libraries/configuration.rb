@@ -4,6 +4,22 @@ module Configuration
   require 'json'
   require 'erb'
 
+  def desymbol obj
+    if obj.is_a? Hash
+      Hash[
+        obj.map do |k,v|
+          [ k.to_s, desymbol(v) ]
+        end
+      ]
+    elsif obj.is_a? Array
+      obj.map { |i| desymbol i }
+    elsif obj.is_a? Symbol
+      obj.to_s
+    else
+      obj
+    end
+  end
+
   def deep_hash obj
     obj.inject({}) do |h, (k,v)|
       h[k] = v.kind_of?(Hash) ? deep_hash(v) : v ; h
@@ -12,6 +28,17 @@ module Configuration
 
   def yaml_config obj
     deep_hash(obj).to_yaml.strip
+  end
+
+  def hocon_config obj
+    begin
+      ::Hocon
+    rescue NameError # Cute trick to install the gem at runtime
+      r = Chef::Resource::ChefGem.new 'hocon', run_context
+      r.run_action :install
+      require 'hocon/config_value_factory'
+    end
+    ::Hocon::ConfigValueFactory.from_map(desymbol(obj)).render
   end
 
   def properties_config obj

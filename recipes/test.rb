@@ -199,6 +199,37 @@ file '/tmp/expect/json.conf.expect' do
 end
 
 
+node.default['configurator']['test']['hocon'] = {
+  'this' => {
+    'is' => [ 'just', :a, 'FREEFORM' ],
+    10 => nil
+  }
+}
+
+file 'tmp/expect/hocon.conf' do
+  content hocon_config(node.default['configurator']['test']['hocon'])
+end
+
+file '/tmp/expect/hocon.conf.expect' do
+  content %Q$
+    {
+        # hardcoded value
+        "this" : {
+            # hardcoded value
+            "10" : null,
+            # hardcoded value
+            "is" : [
+                # hardcoded value
+                "just",
+                # hardcoded value
+                "a",
+                # hardcoded value
+                "FREEFORM"
+            ]
+        }
+    }
+  $.strip.gsub(/^    /, '')
+end
 
 node.default['configurator']['test']['java'] = {
   'this' => {

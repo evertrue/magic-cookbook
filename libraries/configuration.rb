@@ -4,25 +4,19 @@ module Configuration
   require 'json'
   require 'erb'
 
-  def desymbol value
-    if value.is_a? Hash
-      output = {}
-      value.each do |key, value|
-        desymboled_key = key.to_s
-        desymboled_value = desymbol value
-        output[desymboled_key] = desymboled_value
-      end
-      output
-    elsif value.is_a? Array
-      output = []
-      value.each do |item|
-        output << desymbol(item)
-      end
-      output
-    elsif value.is_a? Symbol
-      value.to_s
+  def desymbol obj
+    if obj.is_a? Hash
+      Hash[
+        obj.map do |k,v|
+          [ k.to_s, desymbol(v) ]
+        end
+      ]
+    elsif obj.is_a? Array
+      obj.map { |i| desymbol i }
+    elsif obj.is_a? Symbol
+      obj.to_s
     else
-      value
+      obj
     end
   end
 
@@ -44,9 +38,7 @@ module Configuration
       r.run_action :install
       require 'hocon/config_value_factory'
     end
-    desymboled = desymbol obj
-    Chef::Log.debug desymboled
-    ::Hocon::ConfigValueFactory.from_map(desymboled).render
+    ::Hocon::ConfigValueFactory.from_map(desymbol(obj)).render
   end
 
   def properties_config obj

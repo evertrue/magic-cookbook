@@ -26,6 +26,10 @@ module Configuration
     end
   end
 
+  def inline_config obj
+    obj['lines'].join("\n") + "\n"
+  end
+
   def yaml_config obj
     deep_hash(obj).to_yaml.strip
   end

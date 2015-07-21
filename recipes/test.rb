@@ -321,3 +321,21 @@ file '/tmp/expect/yaml.conf.expect' do
       a: test
   $.strip.gsub(/^    /, '')
 end
+
+
+
+node.default['configurator']['test']['inline'] = {
+  'lines' => %w[ 1 2 3 ]
+}
+
+file '/tmp/expect/inline.conf' do
+  content inline_config(node.default['configurator']['test']['inline'])
+end
+
+file '/tmp/expect/inline.conf.expect' do
+  content %Q$
+    1
+    2
+    3
+  $.strip.gsub(/^    /, '')
+end

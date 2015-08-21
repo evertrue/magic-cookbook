@@ -72,6 +72,17 @@ module Configuration
     end.join("\n")
   end
 
+  def toml_config obj
+    begin
+      ::TOML
+    rescue NameError # Cute trick to install the gem at runtime
+      r = Chef::Resource::ChefGem.new 'toml', run_context
+      r.run_action :install
+      require 'toml'
+    end
+    TOML::Generator.new(obj).body
+  end
+
   def ini_config obj
     obj.map do |name, config|
       "[#{name}]\n" + \

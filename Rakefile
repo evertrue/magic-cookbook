@@ -69,7 +69,7 @@ raise 'ERROR: You should only run tasks on the "master" branch' unless master?
 
 desc 'Perform syntax check and linting'
 task :lint do
-  system "knife cookbook test #{File.basename Dir.pwd} -o .."
+  system "knife cookbook test magic -o .."
   raise 'Failed "knife cookbook test"' unless $?.exitstatus.zero?
   system 'foodcritic .' # Merely a suggestion
 end

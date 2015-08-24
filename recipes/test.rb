@@ -275,6 +275,43 @@ end
 
 
 
+node.default['configurator']['test']['toml'] = {
+  'this' => {
+    'is' => 'just',
+    'a' => 'test'
+  },
+  'hello' => {
+    'world' => 1
+  },
+  'array_of_tables' => [
+    {'something' => 'is'},
+    {'going' => 'on', 'around' => 'here'}
+  ]
+}
+
+file '/tmp/expect/toml.conf' do
+  content toml_config(node.default['configurator']['test']['toml'])
+end
+
+file '/tmp/expect/toml.conf.expect' do
+  content %Q$
+
+    [[array_of_tables]]
+    something = "is"
+
+    [[array_of_tables]]
+    around = "here"
+    going = "on"
+
+    [hello]
+    world = 1
+
+    [this]
+    a = "test"
+    is = "just"
+  $.strip.gsub(/^    /, '')
+end
+
 node.default['configurator']['test']['ini'] = {
   'this' => {
     'is' => 'just',

@@ -183,59 +183,6 @@ foo=bar
 ```
 
 
-### Logstash
-
-Converts a Hash to Logstash-style configuration:
-
-```ruby
-logstash_config({
-  'input' => {
-    'test' => {
-      'file' => {
-        'path' => '/var/log/test.log'
-      }
-    }
-  },
-  'filter' => {
-    'test' => {
-      'seq' => {}
-    }
-  },
-  'output' => {
-    'test' => {
-      'stdout' => {
-        'codec' => 'rubydebug'
-      }
-    }
-  }
-})
-```
-
-Generates:
-
-```
-input {
-  file {
-    path => "/var/log/test.log"
-    type => "test"
-  }
-}
-filter {
-  if [type] == "test" {
-    seq {
-    }
-  }
-}
-output {
-  if [type] == "test" {
-    stdout {
-      codec => "rubydebug"
-    }
-  }
-}
-```
-
-
 ### Exports
 
 Converts a Hash to shell exports-style configuration:
